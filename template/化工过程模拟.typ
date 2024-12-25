@@ -36,12 +36,16 @@
 // 文稿设置
 #show: doc
 
-// 一个别的引用样式，打印时应该注释掉
-#show cite: custom-cite
+// // 一个别的引用样式，打印时应该注释掉
+// #show cite: custom-cite
 
-// 封面页
-#cover()
+// // 封面页
+// #cover()
 
+
+// 如果上述封面不符
+// 可用 #image 插入封面页矢量图并居中
+#align(center)[#image("covers/课程设计封面.svg", width: 210mm, height: 297mm)]
 
 
 // // 字体展示测试页

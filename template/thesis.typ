@@ -21,7 +21,7 @@
   nl-cover: false,  // 国家图书馆封面
   de-cover: false,   // 设计封面
   info: (
-    title: ("基于 Typst 的", "重庆理工大学学位论文"),
+    title: ("基于 Typst 的重庆理工大学学位论文", "——这是一个副标题"),
     title-en: "My Title in English",
     grade: "20XX",
     student-id: "1234567890",

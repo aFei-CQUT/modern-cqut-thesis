@@ -16,7 +16,7 @@
   nl-cover: false,  // 不使用国家图书馆封面
   de-cover: true,
   info: (
-    title: ("化工过程模拟课程总结", ""),
+    title: ("化工过程模拟课程总结", "我是副标题"),
     title-en: "Chemical Process Simulation Course Summary: Chongqing University of Technology Course Design Thesis",
     grade: "2022",
     student-id: "12115990136",
@@ -53,7 +53,7 @@
 
 
 // 声明页
-// #decl-page()
+#decl-page()
 
 
 // 前言计数器

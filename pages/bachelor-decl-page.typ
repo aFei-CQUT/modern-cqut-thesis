@@ -44,20 +44,54 @@
     info.sign-date = datetime-display(info.sign-date)
   }
 
-  // 3. 内置辅助函数
-  let info-value(key, body, width: auto) = {
-    box(
-      width: width,
-      inset: info-inset,
-      stroke: (bottom: stroke-width + black),
-      text(
-        font: fonts.at(info-value-font, default: "宋体"),
-        size: 字号.小三,
-        bottom-edge: "descender",
-        body,
-      ),
-    )
+  // 3. 辅助函数
+  let info-value(key, body, width-1:auto, width-2: 100%) = {
+    if type(body) == array and body.len() == 2 and body.at(1) != "" {
+      // 处理两行标题
+      stack(
+        spacing: 0.5em,
+        [
+          #box(
+            width: width-1,
+            inset: info-inset,
+            stroke: (bottom: stroke-width + black),
+            text(
+              font: fonts.at(info-value-font, default: "宋体"),
+              size: 字号.小三,
+              bottom-edge: "descender",
+              body.at(0)
+            )
+          )
+        ],
+        box(
+          width: width-2,
+          inset: info-inset,
+          stroke: (bottom: stroke-width + black),
+          text(
+            font: fonts.at(info-value-font, default: "宋体"),
+            size: 字号.小三,
+            bottom-edge: "descender",
+            body.at(1)
+          )
+        )
+      )
+    }
+    else {
+      // 处理单行标题（包括只有一个元素的数组、第二个元素为空字符串的数组）
+      box(
+        width: width-1,
+        inset: info-inset,
+        stroke: (bottom: stroke-width + black),
+        text(
+          font: fonts.at(info-value-font, default: "宋体"),
+          size: 字号.小三,
+          bottom-edge: "descender",
+          if type(body) == array { body.at(0) } else { body }
+        )
+      )
+    }
   }
+
 
   // 4. 正式渲染
   pagebreak(weak: true, to: if twoside { "odd" })
@@ -80,16 +114,32 @@
     #set par(justify: true, first-line-indent: 2em, leading: 1.28em)
 
     #fakebold[
-      #text[#indent 本人为重庆理工大学]
-      #info-value("department", info.department, width: 90pt)
+      #indent 本人为重庆理工大学
+        #info-value(
+          "department", info.department, width-1: 90pt
+        ) 
       学院
-      #info-value("major", info.major, width: 105pt)
-      #text[专业的学生。]
+        #info-value(
+          "major", info.major, width-1: 105pt
+        )
+      专业的学生。
 
-      #text[毕业设计（论文）题目为：]
-      #info-value("title", info.title.sum(),width:40%)
+      // 标题部分：使用 grid 布局
+      #let title-prefix = text[#indent 毕业设计（论文）题目为：]
+      #grid(
+        columns: (auto, 1fr),
+        gutter: 0.0em,
+        title-prefix,
+        info-value(
+          "title", 
+          info.title, 
+          width-1: 100%,
+          width-2: 100%
+        )
+      )
 
-      #text[本人郑重承诺：]
+      #h(2em)
+      本人郑重承诺：
     ]
 
     1.该毕业设计（论文）是在指导教师的指导下，查阅相关文献，进行分析研究，独立撰写而成的。
@@ -112,8 +162,10 @@
     #h(2em)
     // 学号
     学号：#box(width: 85pt, info.student-id)
+
     // 间距（对齐）
-    \ \ #h(8em)
+    #v(-1.5em)
+    \ #h(8em)
     // 日期
     签字日期：#box(width: 210pt, info.sign-date)
   ]

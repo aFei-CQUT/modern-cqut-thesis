@@ -48,13 +48,15 @@
     font = (fonts.黑体, fonts.宋体)
   }
 
-  // 2.  正式渲染
-  pagebreak(weak: true, to: if twoside { "odd" })
+  // 2.  页面设置
+  if twoside {
+    pagebreak(weak: true, to: "odd")
+  }
 
   // 默认显示的字体
   set text(font: reference-font, size: reference-size)
 
-  // 4.  设置页眉
+  // 3.  设置页眉
   set page(
     margin: margin,
     header-ascent: 1.5cm,
@@ -74,6 +76,7 @@
     }
   )
 
+  // 4.  标题设置
   {
     set align(center)
     text(..title-text-args, title)
@@ -83,6 +86,7 @@
 
   v(title-vspace)
 
+  // 5.  目录条目样式设置
   show outline.entry: outrageous.show-entry.with(
     // 保留 Typst 基础样式
     ..outrageous.presets.typst,
@@ -102,7 +106,11 @@
     ..args,
   )
 
-  // 显示目录
+  // 6.  显示目录
   outline(title: none, depth: depth)
 
+  // 7.  结束页面设置
+  if twoside {
+    pagebreak(weak: true, to: "odd")
+  }
 }

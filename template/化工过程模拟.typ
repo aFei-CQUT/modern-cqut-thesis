@@ -12,9 +12,9 @@
   outline-page, list-of-figures, list-of-tables, notation, acknowledgement,
 ) = documentclass(
   doctype: "bachelor",
-  twoside: true,  // 双面模式，会加入空白页，便于打印
-  nl-cover: false,  // 不使用国家图书馆封面
-  de-cover: true,
+  twoside:  true,  // 双面模式，会加入空白页，便于打印
+  nl-cover: false,  // 国家图书馆封面
+  de-cover: false,  // 校课程设计封面
   info: (
     title: ("化工过程模拟课程总结", "我是副标题"),
     title-en: "Chemical Process Simulation Course Summary: Chongqing University of Technology Course Design Thesis",
@@ -40,12 +40,12 @@
 // #show cite: custom-cite
 
 // // 封面页
-// #cover()
+#cover()
 
 
 // 如果上述封面不符
 // 可用 #image 插入封面页矢量图并居中
-#align(center)[#image("covers/课程设计封面.svg", width: 210mm, height: 297mm)]
+// #align(center)[#image("covers/课程设计封面.svg", width: 210mm, height: 297mm)]
 
 
 // // 字体展示测试页
@@ -78,12 +78,6 @@
 
 // 目录
 #outline-page()
-
-
-// 手动分页
-#if twoside {
-  pagebreak() + " "
-}
 
 
 // 插图目录
@@ -178,13 +172,7 @@
 
 // 中英双语参考文献
 // 默认使用 gb-7714-2015-numeric 样式
-#bilingual-bibliography(full: true)
-
-
-// 手动分页
-#if twoside {
-  pagebreak() + " "
-}
+#bilingual-bibliography(full: true, twoside: true)
 
 
 // 一个别的引用样式

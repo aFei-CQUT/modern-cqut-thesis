@@ -120,7 +120,7 @@
         mainmatter(
           twoside: twoside,
           display-header: true,
-          info: info,  // 添加这一行
+          info: info,
           ..args,
           fonts: fonts + args.named().at("fonts", default: (:)),
         )

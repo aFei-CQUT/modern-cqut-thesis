@@ -31,7 +31,7 @@
   spacing: 1.27em,
   body,
 ) = {
-  // 1.  默认参数
+  // 1. 默认参数设置
   fonts = 字体 + fonts
   info = (
     title: ("基于 Typst 的", "重庆理工大学学位论文"),
@@ -42,13 +42,13 @@
     supervisor: ("李四", "教授"),
   ) + info
 
-  // 2.  对参数进行处理
-  // 2.1 如果是字符串，则使用换行符将标题分隔为列表
+  // 2. 参数处理
+  // 2.1 如果标题是字符串，则使用换行符将其分隔为列表
   if type(info.title) == str {
     info.title = info.title.split("\n")
   }
 
-  // 3.  内置辅助函数
+  // 3. 内置辅助函数
   let info-key(body) = {
     rect(
       inset: info-inset,
@@ -76,7 +76,8 @@
     )
   }
 
-  // 4.  正式渲染
+  // 4. 开始页面渲染
+  // 4.1 确保在双面打印时，中文摘要从奇数页开始
   pagebreak(weak: true, to: if twoside { "odd" })
 
   [
@@ -84,19 +85,18 @@
     #set par(leading: leading, justify: true)
     #show par: set block(spacing: spacing)
 
-    // 标记一个不可见的标题用于目录生成
+    // 4.2 添加不可见标题用于目录生成
     #invisible-heading(level: 1, outlined: outlined, outline-title)
 
+    // 4.3 页面标题
     #align(center)[
       #set text(size: 字号.小二, weight: "bold")
-
       #v(8pt)
-
       #double-underline((if not anonymous { "重庆理工大学" }) + "研究生毕业论文中文摘要首页用纸")
-
       #v(-5pt)
     ]
 
+    // 4.4 论文信息表格
     #gridx(
       columns: (104pt, 1fr, auto, 1fr, auto, 1.5fr),
       inset: grid-inset,
@@ -109,7 +109,7 @@
       colspanx(2, info-key[指导教师（姓名、职称）：]), colspanx(4, info-value("supervisor", info.supervisor.at(0) + " " + info.supervisor.at(1) + if info.supervisor-ii != () { h(1em) + info.supervisor-ii.at(0) + " " + info.supervisor-ii.at(1) })),
     )
 
-    // 用了很 hack 的方法来实现不规则表格长标题换行...
+    // 4.5 标题处理（使用 hack 方法实现不规则表格长标题换行）
     #pinit-place("title", {
       set text(font: fonts.楷体, size: 字号.四号)
       set par(leading: 1.3em)
@@ -118,22 +118,26 @@
 
     #v(3pt)
 
+    // 4.6 摘要标题
     #align(center, text(font: fonts.黑体, size: 字号.小三, weight: abstract-title-weight, "摘　　要"))
 
     #v(-5pt)
 
+    // 4.7 摘要正文
     #set text(font: fonts.楷体, size: 字号.小四)
-
     #[
       #set par(first-line-indent: 2em)
-
       #fake-par
-      
       #body
     ]
 
     #v(10pt)
 
+    // 4.8 关键词
     *关键词*：#(("",)+ keywords.intersperse("；")).sum()
   ]
+
+  // 5. 结束页面渲染
+  // 5.1 确保在双面打印时，中文摘要后的内容从奇数页开始
+  pagebreak(weak: true, to: if twoside { "odd" })
 }

@@ -1,13 +1,13 @@
 // 导入 preview 中的固定版本 modern-cqut-thesis:0.1.0 进行编译
-#import "@preview/modern-cqut-thesis:0.1.0": *
+// #import "@preview/modern-cqut-thesis:0.1.0": *
 
 // 从 lib.typ 导入并编译, 如果你要修改这个模板格式并编译请务必注释上方 @preview 
 // 并导入下方 lib.typ 进行编译, 因默认优先级 @preview 更高, 直接从 typst 缓存目录（根目录进行编译）
-// #import "../lib.typ": *
+#import "../lib.typ": *
 
 #let (
   // 布局函数
-  twoside, doc, preface, mainmatter, mainmatter-end, appendix,
+  twoside, doc, preface-counter, mainmatter, mainmatter-end, appendix,
   // 页面函数
   fonts-display-page, cover, decl-page, abstract, abstract-en, bilingual-bibliography,
   outline-page, list-of-figures, list-of-tables, notation, acknowledgement,
@@ -62,7 +62,7 @@
 
 
 // 前言
-#show: preface
+#show: preface-counter
 
 
 // 中文摘要

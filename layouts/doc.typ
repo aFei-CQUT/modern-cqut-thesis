@@ -9,12 +9,6 @@
   // 其他参数
   fallback: false,  // 字体缺失时使用 fallback，不显示豆腐块
   lang: "zh",
-  margin: (
-    top: 2.5cm,
-    bottom: 2.5cm, 
-    left: 2.5cm,
-    right: 2cm
-  ),
   it,
 ) = {
   // 1.  默认参数
@@ -31,24 +25,6 @@
 
   // 3.  基本的样式设置
   set text(fallback: fallback, lang: lang)
-  set page(
-    margin: margin,
-    header-ascent: 1.5cm,
-    footer-descent: 1.5cm,
-    header: context {
-      let header-text = [重庆理工大学毕业设计（论文）]
-      let title = info.title.join(" ")
-      grid(
-        columns: (1fr, 1fr),
-        text(font: 字体.宋体, size: 字号.五号, header-text),
-        align(right, text(font: 字体.宋体, size: 字号.五号, title))
-      )
-
-      v(-0.8em) // 减少页眉和横线之间的间距
-      
-      line(length: 100%, stroke: 0.5pt)
-    }
-  )
   
   // 3.1 行间距
   set par(leading: 1.5em)

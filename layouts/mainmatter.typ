@@ -15,6 +15,7 @@
   info: (:),
 
   // 其他参数
+  need2page:true,
   leading: 1.5 * 15.6pt - 0.7em,
   spacing: 1.5 * 15.6pt - 0.7em,
   justify: true,
@@ -178,4 +179,8 @@
   )
 
   it
+
+  // 确保在双面打印时，至偶数页结束
+  pagebreak(weak: true, to: if need2page { "odd" })
+  
 }

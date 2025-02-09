@@ -125,7 +125,7 @@
   // 设置文本语言为中文
   set text(lang: "zh")
   
-  // 分页控制，确保参考文献从奇数页开始（在双面打印模式下）
+  // 确保在双面打印时，从奇数页开始
   pagebreak(weak: true, to: if need2page { "odd" })
   
   // 生成原始参考文献
@@ -140,7 +140,7 @@
   // 处理并返回修改后的参考文献
   process-content(bib)
 
-  // 分页控制，确保参考文献后的内容从奇数页开始（在双面打印模式下）
-  pagebreak(weak: true, to: if need2page { "odd" })
+  // 确保在双面打印时，至偶数页结束
+  pagebreak(weak: true, to: if need2page { "even" })
 
 }

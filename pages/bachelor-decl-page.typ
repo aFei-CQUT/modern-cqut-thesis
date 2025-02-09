@@ -94,7 +94,7 @@
     }
   }
 
-  // 4. 正式渲染
+  // // 4. 正式渲染
   pagebreak(weak: true, to: if need2page { "odd" })
 
   v(10.0pt)
@@ -170,7 +170,7 @@
     签字日期：#box(width: 210pt, info.sign-date)
   ]
 
-  // 5. 结束渲染
-  pagebreak(weak: true, to: if need2page { "odd" })
+  // // 5. 结束渲染
+  pagebreak(weak: true, to: if need2page { "even" })
 
 }

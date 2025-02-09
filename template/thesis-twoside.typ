@@ -98,11 +98,16 @@
 #show: mainmatter
 
 
-// // 符号表
-// #notation[
-//   / DFT: 密度泛函理论 (Density functional theory)
-//   / DMRG: 密度矩阵重正化群密度矩阵重正化群密度矩阵重正化群 (Density-Matrix Reformation-Group)
-// ]
+
+// ------------------------------------------- //
+
+
+
+// 符号表
+#notation[
+  / DFT: 密度泛函理论 (Density functional theory)
+  / DMRG: 密度矩阵重正化群密度矩阵重正化群密度矩阵重正化群 (Density-Matrix Reformation-Group)
+]
 
 
 
@@ -357,8 +362,15 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   caption: [图片测试],
 ) <appendix-img>
 
-// 确保在双面打印时，从偶数页结束
-#pagebreak(weak: true, to: if twoside { "odd" })
+
+
+// ------------------------------------------- //
+
+
+
+// 确保在双面打印时，至偶数页结束
+#pagebreak(weak: true)
+
 
 
 // ------------------------------------------- //

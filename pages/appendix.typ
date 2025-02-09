@@ -22,9 +22,6 @@
   it,
 ) = {
 
-  // 确保在双面打印时，从奇数页开始
-  pagebreak(weak: true, to: if need2page { "odd" })
-
   // 标题编号
   set heading(numbering: numbering)
 
@@ -39,6 +36,9 @@
   // 设置 equation 的编号
   show math.equation.where(block: true): show-equation
 
+  // 确保在双面打印时，从奇数页开始
+  pagebreak(weak: true, to: if need2page { "odd" })
+  
   it
   
 }

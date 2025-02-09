@@ -276,6 +276,7 @@
     list-of-figures: (..args) => {
       list-of-figures(
         need2page: need2page,
+        info: info,
         ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
       )
@@ -285,6 +286,7 @@
     list-of-tables: (..args) => {
       list-of-tables(
         need2page: need2page,
+        info: info,
         ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
       )

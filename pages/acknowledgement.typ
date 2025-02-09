@@ -21,9 +21,6 @@
 
       #body
     ]
-
-    // 确保在双面打印时，从偶数页结束
-    pagebreak(weak: true, to: if need2page { "even" })
     
   }
 }

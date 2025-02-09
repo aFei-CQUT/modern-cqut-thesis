@@ -33,6 +33,10 @@
 
   // 1. 默认参数设置
   fonts = 字体 + fonts
+
+  // 2.  开始渲染
+  pagebreak(weak: true, to: if need2page { "odd" })
+
   info = (
     title: ("基于 Typst 的", "重庆理工大学学位论文"),
     author: "张三",
@@ -41,20 +45,20 @@
     supervisor: ("李四", "教授"),
   ) + info
 
-  // 2. 参数处理
-  // 2.1 如果标题是字符串，则使用换行符将其分隔为列表
+  // 3. 参数处理
+  // 3.1 如果标题是字符串，则使用换行符将其分隔为列表
   if type(info.title) == str {
     info.title = info.title.split("\n")
   }
 
-  // 3. 内置辅助函数
+  // 4. 内置辅助函数
   let info-value(key, body) = {
     if (not anonymous or (key not in anonymous-info-keys)) {
       body
     }
   }
 
-  // 4. 页面设置：页眉
+  // 5. 页面设置：页眉
   set page(
     margin: margin,
     header-ascent: 1.5cm,
@@ -74,15 +78,15 @@
     }
   )
 
-  // 4.  结束渲染
-  pagebreak(weak: true, to: if need2page { "odd" })
-
   [
     #set text(font: fonts.楷体, size: 字号.小四)
     #set par(leading: leading, justify: true, spacing: spacing)
 
-    // 5.2 添加不可见标题用于目录生成
+    // 5.1 添加不可见标题用于目录生成
     #invisible-heading(level: 1, outlined: outlined, outline-title)
+    
+    // 5.2 间距
+    #v(0pt)
 
     // 5.3 中文摘要信息（注释掉，需要时可取消注释）
     // #fakebold[题目：]#info-value("title", (("",)+ info.title).sum())

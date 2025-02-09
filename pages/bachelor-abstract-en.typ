@@ -33,6 +33,10 @@
 
   // 1. 默认参数设置
   fonts = 字体 + fonts
+
+  // 2.  开始渲染
+  pagebreak(weak: true, to: if need2page { "odd" })
+
   info = (
     title-en: "CQUT Thesis Template for Typst",
     author-en: "Zhang San",
@@ -74,17 +78,16 @@
     }
   )
 
-  // 5. 开始页面渲染
-  // 5.1 确保在双面打印时，英文摘要从奇数页开始
-  pagebreak(weak: true, to: if need2page { "odd" })
+
 
   [
     #set text(font: fonts.楷体, size: 字号.小四)
     #set par(leading: leading, justify: true, spacing: spacing)
 
-    // 5.2 添加不可见标题用于目录生成
+    // 5.1 添加不可见标题用于目录生成
     #invisible-heading(level: 1, outlined: outlined, outline-title)
 
+    // 5.2 间距
     #v(2pt)
 
     // 5.3 英文摘要信息

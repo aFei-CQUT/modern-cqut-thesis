@@ -51,11 +51,11 @@
     font = fonts.宋体
   }
 
-  // 2. 开始页面渲染
-  pagebreak(weak: true, to: if need2page { "odd" })
-
   // 设置默认文本样式
   set text(font: reference-font, size: reference-size)
+
+  // 2. 开始页面渲染
+  pagebreak(weak: true, to: if need2page { "odd" })
 
   // 3. 设置页眉
   set page(
@@ -108,5 +108,5 @@
 
   // 7. 结束页面渲染
   pagebreak(weak: true, to: if need2page { "even" })
-  
+
 }

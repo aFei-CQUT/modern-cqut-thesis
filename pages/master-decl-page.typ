@@ -1,12 +1,16 @@
 #import "../utils/indent.typ": indent
 #import "../utils/style.typ": 字号, 字体
 
+
 // 研究生声明页
 #let master-decl-page(
+
   anonymous: false,
   twoside: false,
   fonts: (:),
+
 ) = {
+
   // 0. 如果需要匿名则短路返回
   if anonymous {
     return
@@ -48,4 +52,5 @@
 
     日期：#h(5.8em)
   ]
+  
 }

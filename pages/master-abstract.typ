@@ -5,8 +5,10 @@
 #import "../utils/custom-tablex.typ": gridx, colspanx
 #import "../utils/invisible-heading.typ": invisible-heading
 
+
 // 研究生中文摘要页
 #let master-abstract(
+
   // documentclass 传入的参数
   doctype: "master",
   degree: "academic",
@@ -14,6 +16,7 @@
   twoside: false,
   fonts: (:),
   info: (:),
+
   // 其他参数
   keywords: (),
   outline-title: "中文摘要",
@@ -30,16 +33,20 @@
   leading: 1.27em,
   spacing: 1.27em,
   body,
+
 ) = {
+
   // 1. 默认参数设置
   fonts = 字体 + fonts
   info = (
+
     title: ("基于 Typst 的", "重庆理工大学学位论文"),
     author: "张三",
     grade: "20XX",
     department: "某学院",
     major: "某专业",
     supervisor: ("李四", "教授"),
+
   ) + info
 
   // 2. 参数处理
@@ -140,4 +147,5 @@
   // 5. 结束页面渲染
   // 5.1 确保在双面打印时，中文摘要后的内容从奇数页开始
   pagebreak(weak: true, to: if twoside { "odd" })
+  
 }

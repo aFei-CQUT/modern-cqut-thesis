@@ -1,13 +1,17 @@
 #import "../utils/style.typ": 字号, 字体
 #import "../utils/hline.typ": hline
 
+
 // 字体显示测试页
 #let fonts-display-page(
+
   need2page:true,          // 需要、应为双页的页面
   fonts: (:),
   size: 字号.小四,
   lang: "zh",
+  
 ) = {
+  
   // 1. 默认参数
   fonts = 字体 + fonts
 

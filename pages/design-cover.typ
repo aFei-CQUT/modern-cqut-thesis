@@ -1,7 +1,9 @@
 #import "../utils/style.typ": 字号, 字体
 #import "../utils/datetime-display.typ": datetime-display
 
+
 #let design-cover(
+
   anonymous: false,
   need2page: true,
   fonts: (:),
@@ -16,9 +18,12 @@
   anonymous-info-keys: ("grade", "student-id", "author", "supervisor", "supervisor-ii", "class"),
   bold-info-keys: (),
   bold-level: "bold",
+
 ) = {
+
   fonts = 字体 + fonts
   info = (
+
     title: "课程论文标题",
     grade: "2022",
     student-id: "12115990136",
@@ -28,6 +33,7 @@
     class: "150103",
     supervisor: ("李四", "教授"),
     submit-date: datetime.today(),
+
   ) + info
 
   // 移除 title 的元组转换
@@ -162,4 +168,7 @@
     info-key("提交日期"),
     info-long-value("submit-date", info.submit-date),
   ))
+  
+  pagebreak(weak: true, to: if need2page { "odd" })
+
 }

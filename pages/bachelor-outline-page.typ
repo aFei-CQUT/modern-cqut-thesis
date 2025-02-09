@@ -2,6 +2,7 @@
 #import "../utils/invisible-heading.typ": invisible-heading
 #import "../utils/style.typ": 字号, 字体
 
+
 // 本科生目录生成
 #let bachelor-outline-page(
 
@@ -40,6 +41,7 @@
     right: 2cm
   ),
   ..args,
+
 ) = {
 
   // 1.  默认参数
@@ -114,4 +116,8 @@
 
   // 6.  显示目录
   outline(title: none, depth: depth)
+
+  // 7. 结束渲染
+  pagebreak(weak: true, to: if need2page { "odd" })
+
 }

@@ -4,6 +4,7 @@
 #import "../utils/double-underline.typ": double-underline
 #import "../utils/invisible-heading.typ": invisible-heading
 
+
 // 本科生中文摘要页
 #let bachelor-abstract(
 
@@ -27,7 +28,9 @@
     right: 2cm
   ),
   body,
+
 ) = {
+
   // 1. 默认参数设置
   fonts = 字体 + fonts
   info = (
@@ -110,4 +113,5 @@
 
     // 6.  结束渲染
     pagebreak(weak: true, to: if need2page { "odd" })
+    
 }

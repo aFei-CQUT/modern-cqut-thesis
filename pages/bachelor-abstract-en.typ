@@ -4,6 +4,7 @@
 #import "../utils/double-underline.typ": double-underline
 #import "../utils/invisible-heading.typ": invisible-heading
 
+
 // 本科生英文摘要页
 #let bachelor-abstract-en(
 
@@ -27,7 +28,9 @@
     right: 2cm
   ),
   body,
+
 ) = {
+
   // 1. 默认参数设置
   fonts = 字体 + fonts
   info = (
@@ -110,4 +113,5 @@
   // 6. 结束页面渲染
   // 6.1 确保在双面打印时，英文摘要后的内容从奇数页开始
   pagebreak(weak: true, to: if need2page { "odd" })
+
 }

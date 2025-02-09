@@ -1,6 +1,7 @@
 #import "../utils/datetime-display.typ": datetime-display
 #import "../utils/style.typ": 字号, 字体
 
+
 // 本科生封面
 #let bachelor-cover(
 
@@ -23,6 +24,7 @@
   bold-info-keys: ("title",),
   bold-level: "bold",
   datetime-display: datetime-display,
+
 ) = {
 
   // 1.  默认参数
@@ -63,7 +65,6 @@
       ),
     )
   }
-
   let info-value(key, body) = {
     set align(center)
     rect(
@@ -79,7 +80,6 @@
       ),
     )
   }
-
   let info-long-value(key, body) = {
     grid.cell(colspan: 3,
       info-value(
@@ -92,7 +92,6 @@
       )
     )
   }
-
   let info-short-value(key, body) = {
     info-value(
       key,
@@ -104,7 +103,6 @@
     )
   }
   
-
   // 4.  正式渲染
   pagebreak(weak: true, to: if need2page { "odd" })
 
@@ -165,6 +163,7 @@
     info-long-value("submit-date", info.submit-date),
   ))
 
-  // 8.  结束渲染
+  // 8.结束渲染
   pagebreak(weak: true, to: if need2page { "odd" })
+  
 }

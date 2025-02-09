@@ -5,8 +5,10 @@
 #import "../utils/custom-tablex.typ": gridx, colspanx
 #import "../utils/invisible-heading.typ": invisible-heading
 
+
 // 研究生英文摘要页
 #let master-abstract-en(
+
   // documentclass 传入的参数
   doctype: "master",
   degree: "academic",
@@ -14,6 +16,7 @@
   twoside: false,
   fonts: (:),
   info: (:),
+
   // 其他参数
   keywords: (),
   outline-title: "ABSTRACT",
@@ -30,15 +33,19 @@
   leading: 1.27em,
   spacing: 1.27em,
   body,
+
 ) = {
+
   // 1. 默认参数设置
   fonts = 字体 + fonts
   info = (
+
     title-en: "CQUT Thesis Template for Typst",
     author-en: "Zhang San",
     department-en: "XX Department",
     major-en: "XX Major",
     supervisor-en: "Professor Li Si",
+
   ) + info
 
   // 2. 参数处理
@@ -139,4 +146,5 @@
   // 5. 结束页面渲染
   // 5.1 确保在双面打印时，英文摘要后的内容从奇数页开始
   pagebreak(weak: true, to: if twoside { "odd" })
+  
 }

@@ -2,8 +2,10 @@
 #import "../utils/justify-text.typ": justify-text
 #import "../utils/style.typ": 字号, 字体
 
+
 // 硕士研究生封面
 #let master-cover(
+
   // documentclass 传入的参数
   doctype: "master",
   degree: "academic",
@@ -12,6 +14,7 @@
   twoside: false,
   fonts: (:),
   info: (:),
+
   // 其他参数
   stoke-width: 0.5pt,
   min-title-lines: 2,
@@ -32,7 +35,9 @@
   anonymous-info-keys: ("student-id", "author", "author-en", "supervisor", "supervisor-en", "supervisor-ii", "supervisor-ii-en", "chairman", "reviewer"),
   datetime-display: datetime-display,
   datetime-en-display: datetime-en-display,
+
 ) = {
+
   // 1.  默认参数
   fonts = 字体 + fonts
   info = (
@@ -44,6 +49,7 @@
     major: "某专业",
     supervisor: ("李四", "教授"),
     submit-date: datetime.today(),
+
   ) + info
 
   // 2.  对参数进行处理
@@ -124,7 +130,6 @@
   let defence-info-key = info-key.with(info-inset: defence-info-inset)
   let defence-info-value = info-value.with(info-inset: defence-info-inset)
   
-
   // 4.  正式渲染
   pagebreak(weak: true, to: if twoside { "odd" })
 
@@ -204,7 +209,6 @@
   v(50pt)
 
   text(font: fonts.楷体, size: 字号.三号, datetime-display(info.submit-date))
-
 
   // 第二页
   pagebreak(weak: true)

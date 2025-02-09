@@ -3,8 +3,10 @@
 #import "../utils/invisible-heading.typ": invisible-heading
 #import "../utils/style.typ": 字号, 字体
 
+
 // 表格目录生成函数
 #let list-of-figures(
+
   // documentclass 传入参数
   need2page:true,          // 需要、应为双页的页面
   fonts: (:),
@@ -19,7 +21,9 @@
   vspace: 14pt,     // 垂直间距
   fill: auto,       // 是否显示点号
   ..args,
+
 ) = {
+
   // 1. 默认参数处理
   fonts = 字体 + fonts
   if title-text-args == auto {
@@ -30,7 +34,7 @@
   }
 
   // 2. 开始页面渲染
-  // 确保在双面打印时，从奇数页开始，也即从偶数页结束
+  // 确保在双面打印时，从奇数页开始，也即至偶数页结束
   pagebreak(weak: true, to: if need2page { "odd" })
 
   // 3. 设置默认文本样式
@@ -65,6 +69,7 @@
   i-figured.outline(target-kind: image, title: none)
   
   // 7. 结束页面渲染
-  // 确保在双面打印时，从偶数页结束
-  pagebreak(weak: true, to: if need2page { "even" })
+  // 确保在双面打印时，从奇数页开始，也即至偶数页结束
+  pagebreak(weak: true, to: if need2page { "odd" })
+
 }

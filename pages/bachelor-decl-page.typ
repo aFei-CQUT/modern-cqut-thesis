@@ -3,6 +3,7 @@
 #import "../utils/custom-cuti.typ": fakebold
 #import "../utils/datetime-display.typ": datetime-display
 
+
 // 本科生声明页
 #let bachelor-decl-page(
 
@@ -18,6 +19,7 @@
   info-key-font: "黑体",
   info-value-font: "宋体",
   datetime-display: datetime-display,
+
 ) = {
 
   // 0. 如果需要匿名则短路返回
@@ -167,4 +169,8 @@
     // 日期
     签字日期：#box(width: 210pt, info.sign-date)
   ]
+
+  // 5. 结束渲染
+  pagebreak(weak: true, to: if need2page { "odd" })
+
 }

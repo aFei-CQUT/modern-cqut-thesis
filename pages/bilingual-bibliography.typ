@@ -1,19 +1,26 @@
 // Authors: csimide, OrangeX4
 // Tested only on GB-7714-2015-Numeric
 
+
 #let bilingual-bibliography(
+
   bibliography: none,
   title: "参考文献",
   full: false,
   style: "gb-7714-2015-numeric",
   mapping: (:),
-  extra-comma-before-et-al-trans: false,
+
   // 用于控制多位译者时表现为 `et al. tran`(false) 还是 `et al., tran`(true)
-  allow-comma-in-name: false,
+  extra-comma-before-et-al-trans: false,
+
   // 如果使用的 CSL 中，英文姓名中会出现逗号，请设置为 true
-  need2page: true,
+  allow-comma-in-name: false,
+
   // 控制是否为双面打印模式
+  need2page: true,
+
 ) = {
+
   assert(bibliography != none, message: "请传入带有 source 的 bibliography 函数。")
 
   // 定义中英文映射表
@@ -123,9 +130,11 @@
   
   // 生成原始参考文献
   let bib = bibliography(
+
     title: title,
     full: full,
     style: style,
+    
   )
 
   // 处理并返回修改后的参考文献
@@ -133,4 +142,5 @@
 
   // 分页控制，确保参考文献后的内容从奇数页开始（在双面打印模式下）
   pagebreak(weak: true, to: if need2page { "odd" })
+
 }

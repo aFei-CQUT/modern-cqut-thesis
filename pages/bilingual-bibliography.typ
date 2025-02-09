@@ -11,7 +11,7 @@
   // 用于控制多位译者时表现为 `et al. tran`(false) 还是 `et al., tran`(true)
   allow-comma-in-name: false,
   // 如果使用的 CSL 中，英文姓名中会出现逗号，请设置为 true
-  twoside: false,
+  need2page: true,
   // 控制是否为双面打印模式
 ) = {
   assert(bibliography != none, message: "请传入带有 source 的 bibliography 函数。")
@@ -118,8 +118,8 @@
   // 设置文本语言为中文
   set text(lang: "zh")
   
-  // 添加分页控制，确保参考文献从奇数页开始（在双面打印模式下）
-  pagebreak(weak: true, to: if twoside { "odd" })
+  // 分页控制，确保参考文献从奇数页开始（在双面打印模式下）
+  pagebreak(weak: true, to: if need2page { "odd" })
   
   // 生成原始参考文献
   let bib = bibliography(
@@ -131,6 +131,6 @@
   // 处理并返回修改后的参考文献
   process-content(bib)
 
-  // 添加分页控制，确保参考文献后的内容从奇数页开始（在双面打印模式下）
-  pagebreak(weak: true, to: if twoside { "odd" })
+  // 分页控制，确保参考文献后的内容从奇数页开始（在双面打印模式下）
+  pagebreak(weak: true, to: if need2page { "odd" })
 }

@@ -8,11 +8,11 @@
 
   // documentclass 传入的参数
   anonymous: false,
-  twoside: false,
   fonts: (:),
   info: (:),
 
   // 其他参数
+  need2page: true,
   stroke-width: 0.5pt,
   info-inset: (x: 0pt, bottom: 0pt),
   info-key-font: "黑体",
@@ -92,9 +92,8 @@
     }
   }
 
-
   // 4. 正式渲染
-  pagebreak(weak: true, to: if twoside { "odd" })
+  pagebreak(weak: true, to: if need2page { "odd" })
 
   v(10.0pt)
 
@@ -162,7 +161,6 @@
     #h(2em)
     // 学号
     学号：#box(width: 85pt, info.student-id)
-
     // 间距（对齐）
     #v(-1.5em)
     \ #h(8em)

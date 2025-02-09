@@ -8,18 +8,22 @@
 #import "../utils/unpairs.typ": unpairs
 
 #let mainmatter(
+
   // documentclass 传入参数
   twoside: false,
   fonts: (:),
   info: (:),
+
   // 其他参数
   leading: 1.5 * 15.6pt - 0.7em,
   spacing: 1.5 * 15.6pt - 0.7em,
   justify: true,
   first-line-indent: 2em,
   numbering: custom-numbering.with(first-level: "第一章 ", depth: 4, "1.1 "),
+
   // 正文字体与字号参数
   text-args: auto,
+
   // 标题字体与字号
   heading-font: auto,
   heading-size: (字号.四号,),
@@ -28,6 +32,7 @@
   heading-below: (2 * 15.6pt - 0.7em, 1.5 * 15.6pt - 0.7em),
   heading-pagebreak: (true, false),
   heading-align: (center, auto),
+
   // 页眉
   header-render: auto,
   header-vspace: 0em,
@@ -47,6 +52,7 @@
   ..args,
   it,
 ) = {
+  
   // 0.  标志前言结束
   anti-front-end()
 
@@ -121,7 +127,12 @@
     if (array-at(heading-pagebreak, it.level)) {
       // 如果打上了 no-auto-pagebreak 标签，则不自动换页
       if ("label" not in it.fields() or str(it.label) != "no-auto-pagebreak") {
-        pagebreak(weak: true)
+        if twoside and it.level == 1 {
+          // 对于第一级标题（章节），确保从奇数页开始，也即章节内容至偶数页结束
+          pagebreak(to: "odd")
+        } else {
+          pagebreak(weak: true)
+        }
       }
     }
     if (array-at(heading-align, it.level) != auto) {
@@ -141,18 +152,18 @@
           counter(footnote).update(0)
         }
         
-      let header-text = [重庆理工大学毕业设计（论文）]
-      let title = if type(info.title) == array {
-        info.title.join(" ")
-      } else {
-        info.title
-      }
-      
-      grid(
-        columns: (1fr, 1fr),
-        text(font: fonts.宋体, size: 字号.五号, header-text),
-        align(right, text(font: fonts.宋体, size: 字号.五号, title))
-      )
+        let header-text = [重庆理工大学毕业设计（论文）]
+        let title = if type(info.title) == array {
+          info.title.join(" ")
+        } else {
+          info.title
+        }
+        
+        grid(
+          columns: (1fr, 1fr),
+          text(font: fonts.宋体, size: 字号.五号, header-text),
+          align(right, text(font: fonts.宋体, size: 字号.五号, title))
+        )
 
         v(-0.8em) // 减少页眉和横线之间的间距
         

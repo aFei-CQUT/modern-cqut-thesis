@@ -10,8 +10,13 @@
   show-equation: i-figured.show-equation.with(numbering: "(1.1)"),
   // 重置计数
   reset-counter: false,
+  // 双面打印
+  need2page: true,
   it,
 ) = {
+  // 确保在双面打印时，从奇数页开始
+  pagebreak(weak: true, to: if need2page { "odd" })
+
   set heading(numbering: numbering)
   if reset-counter {
     counter(heading).update(0)

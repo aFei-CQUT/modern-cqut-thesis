@@ -6,12 +6,14 @@
 
 // 本科生中文摘要页
 #let bachelor-abstract(
+
   // documentclass 传入的参数
   anonymous: false,
-  twoside: false,
   fonts: (:),
   info: (:),
+
   // 其他参数
+  need2page:true,
   keywords: (),
   outline-title: "中文摘要",
   outlined: false,
@@ -69,9 +71,8 @@
     }
   )
 
-  // 5. 开始页面渲染
-  // 5.1 确保在双面打印时，中文摘要从奇数页开始
-  pagebreak(weak: true, to: if twoside { "odd" })
+  // 4.  结束渲染
+  pagebreak(weak: true, to: if need2page { "odd" })
 
   [
     #set text(font: fonts.楷体, size: 字号.小四)
@@ -107,7 +108,6 @@
     #fakebold[关键词：]#(("",)+ keywords.intersperse("；")).sum()
   ]
 
-  // 6. 结束页面渲染
-  // 6.1 确保在双面打印时，中文摘要后的内容从奇数页开始
-  pagebreak(weak: true, to: if twoside { "odd" })
+    // 6.  结束渲染
+    pagebreak(weak: true, to: if need2page { "odd" })
 }

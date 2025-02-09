@@ -4,27 +4,34 @@
 
 // 本科生目录生成
 #let bachelor-outline-page(
+
   // documentclass 传入的参数
-  twoside: false,
   fonts: (:),
   info: (:),
+  
   // 其他参数
+  need2page: true,
   depth: 4,
   title: "目　　录",
   outlined: false,
   title-vspace: 0pt,
   title-text-args: auto,
+
   // 引用页数的字体，这里用于显示 Times New Roman
   reference-font: auto,
   reference-size: 字号.小四,
+
   // 字体与字号
   font: auto,
   size: (字号.四号, 字号.小四),
+
   // 垂直间距
   vspace: (25pt, 14pt),
   indent: (0pt, 18pt, 28pt),
+
   // 全都显示点号
   fill: (auto,),
+
   // 页眉
   margin: (
     top: 2.5cm,
@@ -34,6 +41,7 @@
   ),
   ..args,
 ) = {
+
   // 1.  默认参数
   fonts = 字体 + fonts
   if (title-text-args == auto) {
@@ -48,10 +56,8 @@
     font = (fonts.黑体, fonts.宋体)
   }
 
-  // 2.  页面设置
-  if twoside {
-    pagebreak(weak: true, to: "odd")
-  }
+  // 2.  确保在双面打印时，从奇数页开始，也即从偶数页结束
+  pagebreak(weak: true, to: if need2page { "odd" })
 
   // 默认显示的字体
   set text(font: reference-font, size: reference-size)
@@ -108,9 +114,4 @@
 
   // 6.  显示目录
   outline(title: none, depth: depth)
-
-  // 7.  结束页面设置
-  if twoside {
-    pagebreak(weak: true, to: "odd")
-  }
 }

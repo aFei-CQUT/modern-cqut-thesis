@@ -3,12 +3,14 @@
 
 // 本科生封面
 #let bachelor-cover(
+
   // documentclass 传入的参数
   anonymous: false,
-  twoside: false,
   fonts: (:),
   info: (:),
+
   // 其他参数
+  need2page: true,
   stoke-width: 0.5pt,
   min-title-lines: 2,
   info-inset: (x: 0pt, bottom: 1pt),
@@ -22,6 +24,7 @@
   bold-level: "bold",
   datetime-display: datetime-display,
 ) = {
+
   // 1.  默认参数
   fonts = 字体 + fonts
   info = (
@@ -103,13 +106,12 @@
   
 
   // 4.  正式渲染
-  
-  pagebreak(weak: true, to: if twoside { "odd" })
+  pagebreak(weak: true, to: if need2page { "odd" })
 
-  // 居中对齐
+  // 5.居中对齐
   set align(center)
 
-  // 匿名化处理去掉封面标识
+  // 6.匿名化处理去掉封面标识
   if anonymous {
     v(52pt)
   } else {
@@ -124,7 +126,7 @@
     v(2pt)
   }
 
-  // 将中文之间的空格间隙从 0.25 em 调整到 0.5 em
+  // 7.将中文之间的空格间隙从 0.25 em 调整到 0.5 em
   text(size: 字号.小初, font: fonts.黑体, spacing: 200%, weight: "bold")[本 科 毕 业 论 文]
   
   if anonymous {
@@ -162,4 +164,7 @@
     info-key("提交日期"),
     info-long-value("submit-date", info.submit-date),
   ))
+
+  // 8.  结束渲染
+  pagebreak(weak: true, to: if need2page { "odd" })
 }

@@ -3,7 +3,7 @@
 
 // 字体显示测试页
 #let fonts-display-page(
-  twoside: false,
+  need2page:true,          // 需要、应为双页的页面
   fonts: (:),
   size: 字号.小四,
   lang: "zh",
@@ -25,7 +25,7 @@
   ]
 
   // 3. 正式渲染
-  pagebreak(weak: true, to: if twoside { "odd" })
+  pagebreak(weak: true, to: if need2page { "odd" })
   set text(size: size, lang: lang)
 
   [
@@ -51,4 +51,7 @@
 
     #display-font("等宽", "Mono")
   ]
+
+  // 4.  结束渲染
+  pagebreak(weak: true, to: if need2page { "odd" })
 }

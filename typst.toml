@@ -12,5 +12,5 @@ exclude = []
 
 [template]
 path        = "template"
-entrypoint  = "thesis.typ"
+entrypoint  = "thesis-twoside.typ"
 thumbnail   = "thumbnail.png"

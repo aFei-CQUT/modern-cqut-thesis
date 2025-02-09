@@ -3,7 +3,7 @@
 
 #let design-cover(
   anonymous: false,
-  twoside: false,
+  need2page: true,
   fonts: (:),
   info: (:),
   stoke-width: 0.5pt,
@@ -104,7 +104,7 @@
     )
   }
 
-  pagebreak(weak: true, to: if twoside { "odd" })
+  pagebreak(weak: true, to: if need2page { "odd" })
 
   set align(center)
 

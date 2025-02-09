@@ -13,15 +13,15 @@
   outline-page, list-of-figures, list-of-tables, notation, acknowledgement,
 ) = documentclass(doctype: "bachelor",
   // doctype: "bachelor",  // "bachelor" | "master" | "doctor" | "postdoc", 文档类型，默认为本科生 bachelor
-  // degree: "academic",  // "academic" | "professional", 学位类型，默认为学术型 academic
-  // anonymous: true,  // 盲审模式
-  twoside: true,  // 双面模式，会加入空白页，便于打印
-  // 可自定义字体，先英文字体后中文字体，应传入「宋体」、「黑体」、「楷体」、「仿宋」、「等宽」
+  // degree: "academic",   // "academic" | "professional", 学位类型，默认为学术型 academic
+  // anonymous: true,      // 盲审模式
+  twoside:  false,         // 双面模式，会加入空白页，便于打印
+  need2page:true,          // 需要、应为双页的页面  // 可自定义字体，先英文字体后中文字体，应传入「宋体」、「黑体」、「楷体」、「仿宋」、「等宽」
   // fonts: (楷体: ("Times New Roman", "FZKai-Z03S")),
-  nl-cover: false,  // 国家图书馆封面
-  de-cover: false,   // 设计封面
+  nl-cover: false,         // 国家图书馆封面
+  de-cover: false,         // 设计封面
   info: (
-    title: ("基于 Typst 的重庆理工大学学位论文", "——这是一个副标题"),
+    title: ("基于 Typst 的", "重庆理工大学学位论文"),
     title-en: "My Title in English",
     grade: "20XX",
     student-id: "1234567890",
@@ -38,8 +38,9 @@
     submit-date: datetime.today(),
   ),
   // 参考文献源
-  bibliography: bibliography.with("thesis.bib"),
+  bibliography: bibliography.with("thesis-twoside.bib"),
 )
+
 
 // 文稿设置
 #show: doc
@@ -54,7 +55,7 @@
 
 
 // // 字体展示测试页
-// #fonts-display-page()
+#fonts-display-page()
 
 
 // 声明页
@@ -85,18 +86,12 @@
 #outline-page()
 
 
-// 手动分页
-#if twoside {
-  pagebreak() + " "
-}
-
-
 // 插图目录
-// #list-of-figures()
+#list-of-figures()
 
 
 // 表格目录
-// #list-of-tables()
+#list-of-tables()
 
 
 // 正文
@@ -135,12 +130,6 @@
 
 / 术语一: 术语解释
 / 术语二: 术语解释
-
-
-// 手动分页
-#if twoside {
-  pagebreak() + " "
-}
 
 
 
@@ -187,13 +176,6 @@
 ) <cqut-logo>
 
 
-// 手动分页
-#if twoside {
-  pagebreak() + " "
-}
-
-
-
 
 // ------------------------------------------- //
 
@@ -232,12 +214,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   ```,
   caption:[代码块],
 ) <code>
-
-
-// 手动分页
-#if twoside {
-  pagebreak() + " "
-}
 
 
 
@@ -286,13 +262,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
     caption: [化学方程式示例],
   ) <chem-equa>
 ]))
-
-
-
-// 手动分页
-#if twoside {
-  pagebreak() + " "
-}
 
 
 
@@ -346,12 +315,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 ]
 
 
-// // 手动分页
-// #if twoside {
-//   pagebreak() + " "
-// }
-
-
 
 // ------------------------------------------- //
 
@@ -362,20 +325,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 #bilingual-bibliography(full: true)
 
 
-// 手动分页
-#if twoside {
-  pagebreak() + " "
-}
-
-
-// 一个别的引用样式
-// #bibliography(
-//   "./ref.bib",
-//   title: "References",
-//   style: "ieee"
-// )
-
-
 
 // ------------------------------------------- //
 
@@ -383,14 +332,8 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 // 致谢
 #acknowledgement[
-  感谢 XXX，感谢 XXX 模板。
+
 ]
-
-
-// 手动分页
-#if twoside {
-  pagebreak() + " "
-}
 
 
 
@@ -414,13 +357,18 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   caption: [图片测试],
 ) <appendix-img>
 
+// 确保在双面打印时，从偶数页结束
+#pagebreak(weak: true, to: if twoside { "odd" })
 
-// 手动分页
-#if twoside {
-  pagebreak() + " "
-}
+
+// ------------------------------------------- //
+
 
 
 // 正文结束标志，不可缺少
-// 这里放在附录后面，使得页码能正确计数
+// 放在最后使得页码能正确计数
 #mainmatter-end()
+
+
+
+// ------------------------------------------- //

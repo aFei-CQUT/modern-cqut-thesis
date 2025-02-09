@@ -6,12 +6,14 @@
 
 // 本科生英文摘要页
 #let bachelor-abstract-en(
+
   // documentclass 传入的参数
   anonymous: false,
-  twoside: false,
   fonts: (:),
   info: (:),
+
   // 其他参数
+  need2page:true,
   keywords: (),
   outline-title: "ABSTRACT",
   outlined: false,
@@ -71,7 +73,7 @@
 
   // 5. 开始页面渲染
   // 5.1 确保在双面打印时，英文摘要从奇数页开始
-  pagebreak(weak: true, to: if twoside { "odd" })
+  pagebreak(weak: true, to: if need2page { "odd" })
 
   [
     #set text(font: fonts.楷体, size: 字号.小四)
@@ -107,5 +109,5 @@
 
   // 6. 结束页面渲染
   // 6.1 确保在双面打印时，英文摘要后的内容从奇数页开始
-  pagebreak(weak: true, to: if twoside { "odd" })
+  pagebreak(weak: true, to: if need2page { "odd" })
 }

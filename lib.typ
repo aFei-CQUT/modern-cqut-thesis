@@ -2,7 +2,6 @@
 #import "layouts/doc.typ": doc
 #import "layouts/preface-counter.typ": preface-counter
 #import "layouts/mainmatter.typ": mainmatter
-#import "layouts/appendix.typ": appendix
 
 
 // pages 部分
@@ -10,17 +9,19 @@
 #import "pages/design-cover.typ": design-cover
 #import "pages/bachelor-cover.typ": bachelor-cover
 #import "pages/master-cover.typ": master-cover
+#import "pages/bachelor-outline-page.typ": bachelor-outline-page
+#import "pages/list-of-figures.typ": list-of-figures
+#import "pages/list-of-tables.typ": list-of-tables
+#import "pages/notation.typ": notation
 #import "pages/bachelor-decl-page.typ": bachelor-decl-page
 #import "pages/master-decl-page.typ": master-decl-page
 #import "pages/bachelor-abstract.typ": bachelor-abstract
 #import "pages/master-abstract.typ": master-abstract
 #import "pages/bachelor-abstract-en.typ": bachelor-abstract-en
 #import "pages/master-abstract-en.typ": master-abstract-en
-#import "pages/bachelor-outline-page.typ": bachelor-outline-page
-#import "pages/list-of-figures.typ": list-of-figures
-#import "pages/list-of-tables.typ": list-of-tables
-#import "pages/notation.typ": notation
+#import "pages/bilingual-bibliography.typ": bilingual-bibliography
 #import "pages/acknowledgement.typ": acknowledgement
+#import "pages/appendix.typ": appendix
 
 
 // utils 部分
@@ -29,7 +30,6 @@
 /// 即可用 #import "@preview/modern-cqut-thesis:0.1.0": documentclass, indent
 #import "utils/anti-matter.typ": anti-inner-end as mainmatter-end
 #import "utils/custom-cuti.typ": *
-#import "utils/bilingual-bibliography.typ": bilingual-bibliography
 #import "utils/custom-numbering.typ": custom-numbering
 #import "utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "utils/indent.typ": indent, fake-par
@@ -52,6 +52,7 @@
   nl-cover: false,    // TODO: 是否使用国家图书馆封面，默认关闭
   de-cover: false,    // 是否使用 design-cover 渲染封面，默认关闭
   twoside: false,     // 双面模式，会加入空白页，便于打印
+  need2page:true,     // 需要、应为双页的页面
   anonymous: false,   // 盲审模式
   bibliography: none, // 原来的参考文献函数
   fonts: (:),  // 字体，应传入「宋体」、「黑体」、「楷体」、「仿宋」、「等宽」
@@ -140,6 +141,7 @@
     },
     appendix: (..args) => {
       appendix(
+        need2page: need2page,
         ..args,
       )
     },
@@ -147,7 +149,7 @@
     // 字体展示页
     fonts-display-page: (..args) => {
       fonts-display-page(
-        twoside: twoside,
+        need2page: need2page,
         ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
       )
@@ -159,7 +161,7 @@
         // 如果 de-cover 为 true，使用 design-cover 渲染封面
         design-cover(
           anonymous: anonymous,
-          twoside: twoside,
+          need2page: need2page,
           ..args,
           fonts: fonts + args.named().at("fonts", default: (:)),
           info: info + args.named().at("info", default: (:)),
@@ -170,7 +172,7 @@
           degree: degree,
           nl-cover: nl-cover,
           anonymous: anonymous,
-          twoside: twoside,
+          need2page: need2page,
           ..args,
           fonts: fonts + args.named().at("fonts", default: (:)),
           info: info + args.named().at("info", default: (:)),
@@ -180,7 +182,7 @@
       } else {
         bachelor-cover(
           anonymous: anonymous,
-          twoside: twoside,
+          need2page: need2page,
           ..args,
           fonts: fonts + args.named().at("fonts", default: (:)),
           info: info + args.named().at("info", default: (:)),
@@ -193,7 +195,7 @@
       if doctype == "master" or doctype == "doctor" {
         master-decl-page(
           anonymous: anonymous,
-          twoside: twoside,
+          need2page: need2page,
           ..args,
           fonts: fonts + args.named().at("fonts", default: (:)),
         )
@@ -202,7 +204,7 @@
       } else {
         bachelor-decl-page(
           anonymous: anonymous,
-          twoside: twoside,
+          need2page: need2page,
           ..args,
           fonts: fonts + args.named().at("fonts", default: (:)),
           info: info + args.named().at("info", default: (:)),
@@ -217,7 +219,7 @@
           doctype: doctype,
           degree: degree,
           anonymous: anonymous,
-          twoside: twoside,
+          need2page: need2page,
           ..args,
           fonts: fonts + args.named().at("fonts", default: (:)),
           info: info + args.named().at("info", default: (:)),
@@ -227,7 +229,7 @@
       } else {
         bachelor-abstract(
           anonymous: anonymous,
-          twoside: twoside,
+          need2page: need2page,
           ..args,
           fonts: fonts + args.named().at("fonts", default: (:)),
           info: info + args.named().at("info", default: (:)),
@@ -242,7 +244,7 @@
           doctype: doctype,
           degree: degree,
           anonymous: anonymous,
-          twoside: twoside,
+          need2page: need2page,
           ..args,
           fonts: fonts + args.named().at("fonts", default: (:)),
           info: info + args.named().at("info", default: (:)),
@@ -252,7 +254,7 @@
       } else {
         bachelor-abstract-en(
           anonymous: anonymous,
-          twoside: twoside,
+          need2page: need2page,
           ..args,
           fonts: fonts + args.named().at("fonts", default: (:)),
           info: info + args.named().at("info", default: (:)),
@@ -263,7 +265,7 @@
     // 目录页
     outline-page: (..args) => {
       bachelor-outline-page(
-        twoside: twoside,
+        need2page: need2page,
         info: info,
         ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
@@ -273,7 +275,7 @@
     // 插图目录页
     list-of-figures: (..args) => {
       list-of-figures(
-        twoside: twoside,
+        need2page: need2page,
         ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
       )
@@ -282,7 +284,7 @@
     // 表格目录页
     list-of-tables: (..args) => {
       list-of-tables(
-        twoside: twoside,
+        need2page: need2page,
         ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),
       )
@@ -291,7 +293,7 @@
     // 符号表页
     notation: (..args) => {
       notation(
-        twoside: twoside,
+        need2page: need2page,
         ..args,
       )
     },
@@ -300,15 +302,17 @@
     bilingual-bibliography: (..args) => {
       bilingual-bibliography(
         bibliography: bibliography,
+        need2page: need2page,
         ..args,
       )
     },
+
 
     // 致谢页
     acknowledgement: (..args) => {
       acknowledgement(
         anonymous: anonymous,
-        twoside: twoside,
+        need2page: need2page,
         ..args,
       )
     },

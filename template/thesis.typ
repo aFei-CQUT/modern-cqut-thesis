@@ -21,7 +21,8 @@
   // 
   // anonymous: true,       // 盲审模式
   // 
-  twoside:  false,          // 双面模式，会加入空白页，便于打印
+  twoside:  true,          // 双面模式，会加入空白页，便于打印
+  ///twoside:  false,      // 参数为false时页面编号错误!!!
   // 
   need2page:true,           // 需要、应为双页的页面
   // 
@@ -62,16 +63,16 @@
 #show cite: custom-cite
 
 
-// 封面页
-#cover()
+// // 封面页
+// #cover()
 
 
 // // 字体展示测试页
-#fonts-display-page()
+// #fonts-display-page()
 
 
-// 声明页
-#decl-page()
+// // 声明页
+// #decl-page()
 
 
 // 前言

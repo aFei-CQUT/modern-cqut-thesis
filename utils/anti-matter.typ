@@ -1,4 +1,6 @@
 // 导出 anti-matter 中的函数
+// Export functions from anti-matter
+
 #let (
   anti-front-end,
   anti-inner-end,
@@ -11,21 +13,21 @@
   anti-thesis,
   anti-matter,
 ) = {
-  // TODO: 我认为可以移除spec,改用loc.page-numbering()
 
   // 验证spec
+  // Validate spec
   let assert-spec-valid(spec) = {
     if type(spec) != dictionary {
-      panic("spec必须是一个字典,而不是 " + type(spec))
+      panic("spec必须是一个字典,而不是 " + type(spec))  // "spec must be a dictionary, not " + type(spec)
     }
 
     if spec.len() != 3 {
-      panic("spec必须恰好包含3个元素,而不是 " + str(spec.len()))
+      panic("spec必须恰好有3个元素,而不是 " + str(spec.len()))  // "spec must have exactly 3 elements, not " + str(spec.len())
     }
 
-    if "front" not in spec { panic("缺少front键") }
-    if "inner" not in spec { panic("缺少inner键") }
-    if "back" not in spec { panic("缺少back键") }
+    if "front" not in spec { panic("缺少front键") }  // "Missing 'front' key"
+    if "inner" not in spec { panic("缺少inner键") }  // "Missing 'inner' key"
+    if "back" not in spec { panic("缺少back键") }  // "Missing 'back' key"
   }
 
   let meta-label = <anti-matter:label>
@@ -33,16 +35,17 @@
   let key-inner-end = "anti-matter:inner-end"
 
   // 获取给定位置的事项和修正
+  // Get the relevant section and correction for the page numbering
   let where-am-i(spec, loc) = {
     let markers = query(meta-label)
 
     assert.eq(
       markers.len(),
       2,
-      message: "必须恰好有两个标记(不要使用 <anti-matter:meta>)"
+      message: "必须恰好有两个标记(不要使用 <anti-matter:meta>)"  // "There must be exactly two markers (do not use <anti-matter:meta>)"
     )
-    assert.eq(markers.at(0).value, key-front-end, message: "第一个标记必须是前端标记")
-    assert.eq(markers.at(1).value, key-inner-end, message: "第二个标记必须是内部结束标记")
+    assert.eq(markers.at(0).value, key-front-end, message: "第一个标记必须是前端标记")  // "The first marker must be the front-end marker"
+    assert.eq(markers.at(1).value, key-inner-end, message: "第二个标记必须是内部结束标记")  // "The second marker must be the inner-end marker"
 
     let front-matter = markers.first().location()
     let inner-matter = markers.last().location()
@@ -59,61 +62,50 @@
     }
   }
 
-  /// 标记文档前端事项的结束,将其放在前端事项的最后一页。
-  /// 确保将其放在尾随的`pagebreaks`之前。
-  ///
-  /// -> content
+  // 标记文档前端事项的结束,将其放在前端事项的最后一页。
+  // Mark the end of the front matter, placing it on the last page of the front section.
   let anti-front-end() = [#metadata(key-front-end) #meta-label]
 
-  /// 标记文档内部事项的结束,将其放在内部事项的最后一页。
-  /// 确保将其放在尾随的`pagebreaks`之前。
-  ///
-  /// -> content
+  // 标记文档内部事项的结束,将其放在内部事项的最后一页。
+  // Mark the end of the main content, placing it on the last page of the content section.
   let anti-inner-end() = [#metadata(key-inner-end) #meta-label]
 
-  /// 返回文档前端和后端事项的计数器。
-  ///
-  /// -> counter
+  // 返回文档前端和后端事项的计数器。
+  // Return the counter for the front and back sections of the document.
   let anti-outer-counter() = counter("anti-matter:outer")
 
-  /// 返回文档主要内容的计数器。
-  ///
-  /// -> counter
+  // 返回文档主要内容的计数器。
+  // Return the counter for the main content section.
   let anti-inner-counter() = counter("anti-matter:inner")
 
-  /// 返回给定位置的活动计数器。这可用于在特定位置设置页面计数器。
-  ///
-  /// - spec (dictionary): 文档的规格,参见 @@anti-matter
-  /// - loc (location): 获取活动计数器的位置
-  /// -> counter
+  // 返回给定位置的活动计数器。这可用于在特定位置设置页面计数器。
+  // Return the active counter for a given location. This is useful for setting the page counter at a specific position.
+  // - spec (dictionary): The document specification, see @@anti-matter
+  // - loc (location): The location for the counter
   let anti-active-counter-at(spec, loc) = {
     let (matter, _, _) = where-am-i(spec, loc)
 
     if matter == "inner" {
-      anti-inner-counter()
+      anti-inner-counter()  // Return inner content counter
     } else {
-      anti-outer-counter()
+      anti-outer-counter()  // Return outer content counter
     }
   }
 
-  /// 使用默认规格,共享外部编号和计数器。
-  ///
-  /// 返回的字典简单地包含`front`、`inner`和`back`键的编号。
-  ///
-  /// - outer (string, function): 用于前端和后端事项的编号
-  /// - inner (string, function): 用于文档主要内容的编号
-  /// -> dictionary
+  // 使用默认规格,共享外部编号和计数器。
+  // Use the default specification to share the outer numbering and counter.
+  // 返回的字典包含`front`、`inner`和`back`键的编号。
+  // The returned dictionary contains numbering for `front`, `inner`, and `back`.
   let anti-thesis(outer: "I", inner: "1") = (
-    front: outer,
-    inner: inner,
-    back: outer,
+    front: outer,  // Front matter uses Roman numerals (I, II, III)
+    inner: inner,  // Main content uses Arabic numerals (1, 2, 3)
+    back: outer,   // Back matter uses Roman numerals (I, II, III)
   )
 
-  /// 返回给定位置的页面编号,根据规格进行必要的调整和编号。
-  ///
-  /// - spec (dictionary): 文档的规格,参见 @@anti-matter
-  /// - loc (location): 评估编号的位置
-  /// -> content
+  // 返回给定位置的页面编号,根据规格进行必要的调整和编号。
+  // Return the page number for a given location, adjusting according to the specification.
+  // - spec (dictionary): Document specification
+  // - loc (location): Location to calculate the page number
   let anti-page-at(spec, loc) = {
     let (_, num, correction) = where-am-i(spec, loc)
 
@@ -123,36 +115,31 @@
     numbering(num, ..vals)
   }
 
-  /// 返回给定位置的格式化页码,根据规格进行必要的调整和编号。
-  ///
-  /// - spec (dictionary): 描述文档编号的规格,参见 @@anti-matter
-  /// -> content
+  // 返回给定位置的格式化页码,根据规格进行必要的调整和编号。
+  // Return the formatted page number for a given location, adjusting according to the specification.
+  // - spec (dictionary): Document specification
   let anti-page(spec) = context {
     let loc = here()
     anti-page-at(spec, loc)
   }
 
-  /// 渲染页眉,同时维护anti-matter计数器步进。
-  ///
-  /// - spec (dictionary): 描述文档编号的规格,参见 @@anti-matter
-  /// - header (content): 要渲染的页眉
-  /// -> content
+  // 渲染页眉,同时维护anti-matter计数器步进。
+  // Render the header while maintaining the anti-matter counter.
+  // - spec (dictionary): Document specification
+  // - header (content): The header content to be rendered
   let anti-header(spec, header) = {
     context {
       let loc = here()
-      anti-active-counter-at(spec, loc).step()
+      anti-active-counter-at(spec, loc).step()  // Step the active counter for the header
     }
     header
   }
 
-  /// 应用页面编号和outline.entry的show规则以修复其页面编号的模板函数。
-  /// 如果需要更细粒度地控制大纲条目和页眉,请参阅库文档。
-  /// 这可以用于show规则。参数会被验证。
-  ///
-  /// - spec (dictionary): 描述文档编号的规格,参见 @@anti-matter
-  /// - debug (bool): 在页眉中显示当前事项和相关信息
-  /// - body (content): 要使用anti-matter编号渲染的内容
-  /// -> content
+  // 应用页面编号和outline.entry的show规则以修复其页面编号的模板函数。
+  // Apply page numbering and outline entry show rules to fix page numbering.
+  // - spec (dictionary): Document specification
+  // - debug (bool): Show current section and related info in the header
+  // - body (content): Content to render with anti-matter numbering
   let anti-matter(
     spec: anti-thesis(),
     debug: false,
@@ -185,7 +172,7 @@
       }
       link(it.element.location(), anti-page-at(spec, it.element.location()))
     }
-  
+
     body
   }
 

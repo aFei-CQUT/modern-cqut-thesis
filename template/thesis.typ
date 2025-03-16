@@ -21,7 +21,8 @@
   // 
   // anonymous: true,       // 盲审模式
   // 
-  twoside:  false,          // 双面模式，会加入空白页，便于打印
+  twoside:  true,          // 双面模式，会加入空白页，便于打印
+  ///twoside:  false,      // 参数为false时页面编号错误!!!
   // 
   need2page:true,           // 需要、应为双页的页面
   // 
@@ -53,30 +54,23 @@
   bibliography: bibliography.with("thesis.bib"),
 )
 
-
 // 文稿设置
 #show: doc
-
 
 // 一个别的引用样式，打印时应该注释掉
 #show cite: custom-cite
 
-
 // 封面页
 #cover()
 
-
-// // 字体展示测试页
+// 字体展示测试页
 #fonts-display-page()
-
 
 // 声明页
 #decl-page()
 
-
 // 前言
 #show: preface-counter
-
 
 // 中文摘要
 #abstract(
@@ -85,7 +79,6 @@
   中文摘要
 ]
 
-
 // 英文摘要
 #abstract-en(
   keywords: ("Keyword1", "Keyword2", "Keyword3", "Keyword4")
@@ -93,39 +86,23 @@
   English abstract
 ]
 
-
 // 目录
 #outline-page()
-
 
 // 插图目录
 #list-of-figures()
 
-
 // 表格目录
 #list-of-tables()
-
 
 // 正文
 #show: mainmatter
 
-
-
-// ------------------------------------------- //
-
-
-
-// // 符号表
-// #notation[
-//   / DFT: 密度泛函理论 (Density functional theory)
-//   / DMRG: 密度矩阵重正化群密度矩阵重正化群密度矩阵重正化群 (Density-Matrix Reformation-Group)
-// ]
-
-
-
-// ------------------------------------------- //
-
-
+// 符号表
+#notation[
+  / DFT: 密度泛函理论 (Density functional theory)
+  / DMRG: 密度矩阵重正化群密度矩阵重正化群密度矩阵重正化群 (Density-Matrix Reformation-Group)
+]
 
 = 列　表
 
@@ -147,12 +124,6 @@
 
 / 术语一: 术语解释
 / 术语二: 术语解释
-
-
-
-// ------------------------------------------- //
-
-
 
 = 图　表
 
@@ -192,12 +163,6 @@
   caption: [图片测试],
 ) <cqut-logo>
 
-
-
-// ------------------------------------------- //
-
-
-
 = 数　学
 
 可以像 Markdown 一样写行内公式 $x + y$，以及带编号的行间公式：
@@ -231,12 +196,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   ```,
   caption:[代码块],
 ) <code>
-
-
-
-// ------------------------------------------- //
-
-
 
 = 化　学
 
@@ -279,12 +238,6 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
     caption: [化学方程式示例],
   ) <chem-equa>
 ]))
-
-
-
-// ------------------------------------------- //
-
-
 
 = 定　理
 
@@ -331,32 +284,14 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   $
 ]
 
-
-
-// ------------------------------------------- //
-
-
-
 // 中英双语参考文献
 // 默认使用 gb-7714-2015-numeric 样式
 #bilingual-bibliography(full: true)
-
-
-
-// ------------------------------------------- //
-
-
 
 // 致谢
 #acknowledgement[
 
 ]
-
-
-
-// ------------------------------------------- //
-
-
 
 // 附录
 #show: appendix
@@ -374,25 +309,9 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   caption: [图片测试],
 ) <appendix-img>
 
-
-
-// ------------------------------------------- //
-
-
-
 // 确保在双面打印时，至偶数页结束
 #pagebreak(weak: true)
-
-
-
-// ------------------------------------------- //
-
-
 
 // 正文结束标志，不可缺少
 // 放在最后使得页码能正确计数
 #mainmatter-end()
-
-
-
-// ------------------------------------------- //
